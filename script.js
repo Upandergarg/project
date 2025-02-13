@@ -32,6 +32,41 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transition = 'all 0.8s ease';
         observer.observe(card);
     });
+
+    // Add hover effect for gallery items
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.02)';
+        });
+        
+        item.addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+
+    // Add smooth reveal animation for products
+    const productObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('product-visible');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.product-card').forEach(product => {
+        productObserver.observe(product);
+    });
+
+    // Add click animation for buy buttons
+    document.querySelectorAll('.buy-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
 });
 
 // Add glitter effect to navbar on hover
